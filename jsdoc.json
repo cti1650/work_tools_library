@@ -13,7 +13,7 @@
     "scripts": [],
     "menu": {
       "Github repo": {
-        "href": "https://github.com/cti1650/yscraw",
+        "href": "https://github.com/cti1650/work_tools_library",
         "target": "_blank",
         "class": "menu-item",
         "id": "repository"

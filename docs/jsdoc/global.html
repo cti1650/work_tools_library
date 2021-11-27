@@ -29,7 +29,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/cti1650/yscraw" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Global</h3><ul><li><a href="global.html#mail">mail</a></li><li><a href="global.html#search">search</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/cti1650/work_tools_library" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Global</h3><ul><li><a href="global.html#LineApp">LineApp</a></li></ul>
 </nav>
 
 <div id="main">
@@ -126,7 +126,7 @@
 
     
 
-    <h4 class="name" id="mail"><span class="type-signature"></span>mail<span class="signature">(option)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LineApp"><span class="type-signature"></span>LineApp<span class="signature">(token)</span><span class="type-signature"></span></h4>
 
     
 
@@ -138,7 +138,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line17">line 17</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -178,7 +178,7 @@
 
 
 <div class="description usertext">
-    <p>search関数で取得したデータをメールで送信するための関数</p>
+    <p>LINEを扱うための関数</p>
 </div>
 
 
@@ -187,14 +187,6 @@
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>mail({
- title: "React.js関連情報",
- itemList: search("React.js OR Next.js"),
-});</code></pre>
 
 
 
@@ -224,49 +216,7 @@
 
         <tr>
             
-                <td class="name"><code>option</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>メールで送信する情報を設定</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>to</code></td>
+                <td class="name"><code>token</code></td>
             
 
             <td class="type">
@@ -282,106 +232,7 @@
 
             
 
-            <td class="description last"><p>送付先</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>件名</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>itemList</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>送信するjsonデータ</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>itemLayout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>アイテム毎の出力書式(HTML)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>bodyLayout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>文章全体の出力書式(HTML)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"><p>LINE Notify Token</p></td>
         </tr>
 
     
@@ -403,289 +254,6 @@
 
 
 
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="search"><span class="type-signature"></span>search<span class="signature">(word, option)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>yahoo検索で検索した結果をjson形式で取得するための関数</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const json = search("React.js OR Next.js");</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>word</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Yahooで検索するワード</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>option</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Yahoo検索時の条件</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ei</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>文字エンコード</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>vd</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>抽出期間</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Yahoo検索で取得するページ数</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Yahoo検索結果をjson形式で取得 [{title,url}]</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -709,7 +277,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 25 2021 12:53:46 GMT+0900 (日本標準時) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sun Nov 28 2021 00:00:04 GMT+0900 (日本標準時) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
