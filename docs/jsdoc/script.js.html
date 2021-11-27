@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>script.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/cti1650/yscraw" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Global</h3><ul><li><a href="global.html#mail">mail</a></li><li><a href="global.html#search">search</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">script.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>function _testCase() {}
+
+/**
+ * search関数で取得したデータをメールで送信するための関数
+ * @param {Object} option - メールで送信する情報を設定
+ * @param {string} option.to - 送付先
+ * @param {string} option.title - 件名
+ * @param {Array} option.itemList - 送信するjsonデータ
+ * @param {string} option.itemLayout - アイテム毎の出力書式(HTML)
+ * @param {string} option.bodyLayout - 文章全体の出力書式(HTML)
+ * @example
+ * mail({
+ *  title: "React.js関連情報",
+ *  itemList: search("React.js OR Next.js"),
+ * });
+ */
+function mail(option = {}) {
+  const defaultOption = {
+    to: Session.getActiveUser().getUserLoginId(),
+    title: "title",
+    itemList: [],
+    itemLayout: `&lt;p>&lt;a href="{{url}}" alt="link">{{title}}&lt;/a>&lt;/p>`,
+    bodyLayout: `&lt;h1>{{title}}&lt;/h1>
+    &lt;div>{{body}}&lt;/div>`,
+  };
+  const baseOption = { ...defaultOption, ...option };
+  const arr = search(baseOption.title);
+  const itemListBody = arr
+    .map((item) => {
+      if (item) {
+        let itemLayoutStr = baseOption.itemLayout;
+        Object.keys(item).forEach((key) => {
+          itemLayoutStr = itemLayoutStr.replaceAll(
+            `{{${key}}}`,
+            item[key].toString()
+          );
+        });
+        return itemLayoutStr;
+      }
+    })
+    .filter((v) => v)
+    .join("");
+  const templateDataSet = {
+    title: baseOption.title,
+    body: itemListBody,
+  };
+  let body = baseOption.bodyLayout;
+  Object.keys(templateDataSet).forEach((key) => {
+    body = body.replaceAll(`{{${key}}}`, templateDataSet[key].toString());
+  });
+  MailApp.sendEmail({
+    to: baseOption.to,
+    subject: baseOption.title,
+    htmlBody: body,
+  });
+}
+
+/**
+ * yahoo検索で検索した結果をjson形式で取得するための関数
+ * @param {string} word - Yahooで検索するワード
+ * @param {Object} option - Yahoo検索時の条件
+ * @param {string} option.ei - 文字エンコード
+ * @param {string} option.vd - 抽出期間
+ * @param {number} option.pages - Yahoo検索で取得するページ数
+ * @return {Array} - Yahoo検索結果をjson形式で取得 [{title,url}]
+ * @example
+ * const json = search("React.js OR Next.js");
+ */
+function search(word, option = {}) {
+  let result = [];
+  const defaultOption = {
+    x: "wrt",
+    aq: -1,
+    ai: "",
+    ei: "UTF-8",
+    vd: "w",
+    pages: 2,
+  };
+  const baseOption = { ...defaultOption, ...option };
+  const param = Object.keys(baseOption)
+    .map((key) => {
+      return `${key}=${encodeURI(baseOption[key])}`;
+    })
+    .join("&amp;");
+  const pageCount = baseOption.pages;
+  const linkRegexp = /&lt;a href=\"(.*?) .*?ping.*?>.*?&lt;\/a>/gm;
+  const urlRegexp = /href=\"(.*?)\"/;
+  const titleRegexp = /&lt;a .*?>(.*?)&lt;\/a>/;
+  [...new Array(pageCount)].forEach((value, index) => {
+    try {
+      const searchUrl =
+        "https://search.yahoo.co.jp/search?p=" +
+        encodeURI(word) +
+        "&amp;" +
+        param +
+        "&amp;b=" +
+        (index * 10 + 1);
+      const response = UrlFetchApp.fetch(searchUrl);
+      const elems = response.getContentText().match(linkRegexp);
+      elems.forEach((elem) => {
+        const url = elem.match(urlRegexp)[1];
+        if (url === "https://www.yahoo.co.jp") return;
+        const title = elem.match(titleRegexp)[1];
+        result.push({
+          url: url,
+          title: title
+            .replaceAll("&lt;b>", "")
+            .replaceAll("&lt;/b>", "")
+            .replaceAll("&lt;br>", ""),
+        });
+      });
+    } catch (e) {
+      Logger.log("NG count: " + index);
+    }
+  });
+  return result;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 25 2021 12:53:46 GMT+0900 (日本標準時) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
