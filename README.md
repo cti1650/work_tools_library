@@ -9,7 +9,7 @@
 ### スクリプト ID
 
 ```
-1EZpEBW7RavtpwLvGYAwsHqiBw6-5iz74JxkEwTYbDeqEFY_d0VmI_h-k
+14fOuPV-L5LE-baRat4myOEz_nZ_H84qF9KV8X8fxwPLKTOt_njS_veol
 ```
 
 導入方法に関しては以下のサイトがわかりやすいです！
@@ -117,3 +117,5 @@ clasp open
 - [TypeScript: Documentation - JSDoc リファレンス](https://www.typescriptlang.org/ja/docs/handbook/jsdoc-supported-types.html#param%E3%81%A8returns)
 - [より良い JSDoc ドキュメントの作成](https://ichi.pro/yori-yoi-jsdoc-dokyumento-no-sakusei-153357804391883)
 - [GAS のおすすめライブラリ一覧！使い方やインポート手順についても解説！ | monoblog](https://monoblog.jp/archives/6019)
+- [GAS 超入門 ⑦ - LINE に通知してみる｜スキプラ＠元エンジニア｜ note](https://note.com/skipla/n/nefdfa2abd350)
+- [LINE Notify](https://notify-bot.line.me/doc/ja/)
