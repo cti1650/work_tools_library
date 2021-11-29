@@ -26,6 +26,12 @@ function TemplateDocs(folderId) {
     size: "A4", // 用紙サイズの指定 legal / letter / A4
     portrait: "true", // true → 縦向き、false → 横向き
     fitw: "true", // 幅を用紙に合わせるか
+    top_margin: "0.50", //上の余白
+    right_margin: "0.50", //右の余白
+    bottom_margin: "0.50", //下の余白
+    left_margin: "0.50", //左の余白
+    horizontal_alignment: "CENTER", //水平方向の位置
+    vertical_alignment: "TOP", //垂直方向の位置
     docNames: "false", // シート名を PDF 上部に表示するか
     printtitle: "false", // スプレッドシート名を PDF 上部に表示するか
     pagenumbers: "false", // ページ番号の有無
