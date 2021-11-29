@@ -22,7 +22,7 @@
 
 ```
 function TempDocs(){
-  const { docToDoc } = Work_tools_library.TemplateDocs('1DbGt9LKeCXASy-ZO0w57_DpHiTuYB7dc');
+  const { docToDoc } = Work_tools_library.TemplateDocs('{{格納先フォルダのID}}');
   Logger.log(
     docToDoc(
       '{{テンプレートファイルのID}}',
