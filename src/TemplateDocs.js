@@ -63,11 +63,11 @@ function TemplateDocs(folderId) {
     targetDocument.saveAndClose();
 
     if (baseOptions.pdfOutput) {
-      Logger.log(makePDF(fileId));
+      const { linkUrl } = makePDF(fileId);
+      return { data, docUrl, pdfUrl: linkUrl, fileId };
     }
 
-    const array = { data, docUrl, fileId };
-    return array;
+    return { data, docUrl, fileId };
   }
   function createPDFblob(fileId, option = {}) {
     const des_url = "https://docs.google.com/document/d/" + fileId + "/export?";
