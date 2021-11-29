@@ -1,3 +1,14 @@
+## Functions
+
+<dl>
+<dt><a href="#LineApp">LineApp(token)</a></dt>
+<dd><p>LINEを扱うための関数</p>
+</dd>
+<dt><a href="#TemplateDocs">TemplateDocs(folderId)</a></dt>
+<dd><p>差し込み出力を行うための関数</p>
+</dd>
+</dl>
+
 <a name="LineApp"></a>
 
 ## LineApp(token)
@@ -9,3 +20,40 @@ LINEを扱うための関数
 | --- | --- | --- |
 | token | <code>string</code> | LINE Notify Token |
 
+**Example**  
+```js
+function sendLINE() {
+  const { sendLine } = Work_tools_library.LineApp('{{LINE Notify token}}');
+  sendLine('テスト送信！');
+}
+```
+<a name="TemplateDocs"></a>
+
+## TemplateDocs(folderId)
+差し込み出力を行うための関数
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| folderId | <code>string</code> | 出力データ格納先フォルダID |
+
+**Example**  
+```js
+function TempDocs(){
+  const { docToDoc } = Work_tools_library.TemplateDocs('1DbGt9LKeCXASy-ZO0w57_DpHiTuYB7dc');
+  Logger.log(
+    docToDoc(
+      '{{テンプレートファイルのID}}',
+      {
+        test:'タイトル',
+        test1:'テーマ',
+        test2:'はじめに',
+      },
+      {
+        pdfOutput:true
+      }
+    )
+  );
+}
+```

@@ -18,21 +18,35 @@
 
 ### ライブラリの使い方
 
-以下のスクリプトを作成し実行することで、
-Yahoo 検索結果を実行したユーザーのメールアドレス宛に送付できます。
+#### Json データからテンプレートドキュメントへの差し込み出力
 
 ```
-function testFunc(){
-  YahooSearchCrawlingLibrary.mail({
-    'title':'React.js関連情報',
-    'itemList':YahooSearchCrawlingLibrary.search('React.js OR Next.js'),
-  });
+function TempDocs(){
+  const { docToDoc } = Work_tools_library.TemplateDocs('1DbGt9LKeCXASy-ZO0w57_DpHiTuYB7dc');
+  Logger.log(
+    docToDoc(
+      '{{テンプレートファイルのID}}',
+      {
+        test:'タイトル',
+        test1:'テーマ',
+        test2:'はじめに',
+      },
+      {
+        pdfOutput:true
+      }
+    )
+  );
 }
 ```
 
-## 使用時の注意事項
+#### LINE Notify へのメッセージ送信
 
-本ライブラリを使用する場合はサーバーへの高負荷をかけないためにも必ず実行時間に 1 秒以上の間隔を空けるようにご協力お願いいたします。
+```
+function sendLINE() {
+  const { sendLine } = Work_tools_library.LineApp('{{LINE Notify token}}');
+  sendLine('テスト送信！');
+}
+```
 
 ## 使用コマンド
 
@@ -59,7 +73,7 @@ clasp login
 ### GAS のスクリプトをローカルにクローン
 
 ```
-clasp clone 1EZpEBW7RavtpwLvGYAwsHqiBw6-5iz74JxkEwTYbDeqEFY_d0VmI_h-k
+clasp clone 14fOuPV-L5LE-baRat4myOEz_nZ_H84qF9KV8X8fxwPLKTOt_njS_veol
 ```
 
 ### ダウンロード
@@ -102,7 +116,6 @@ clasp open
 
 ## 参考にしたサイト
 
-- [Google の特別構文 syntax を Yahoo!検索で site コマンドから | SEO BLOG Ragnarok](https://www.seoragnarok.com/posts/20110708191315-1192/)
 - [GAS から指定の URL にリクエストを投げて、スクレイピングしてみよう - ポンコツエンジニアのごじゃっぺ開発日記。](https://www.pnkts.net/2019/12/05/gas-web-scraping)
 - [Web スクレイピング用 PC は AWS を使った方が安く済むのか検証してみた](https://zenn.dev/heromina/articles/0fbf6017f06d7f)
 - [GAS 実行ユーザーのメールアドレス(Google アカウント)を取得する方法 | AutoWorker〜Google Apps Script(GAS)と Sikuli で始める業務改善入門](https://auto-worker.com/blog/?p=2923)
@@ -119,3 +132,10 @@ clasp open
 - [GAS のおすすめライブラリ一覧！使い方やインポート手順についても解説！ | monoblog](https://monoblog.jp/archives/6019)
 - [GAS 超入門 ⑦ - LINE に通知してみる｜スキプラ＠元エンジニア｜ note](https://note.com/skipla/n/nefdfa2abd350)
 - [LINE Notify](https://notify-bot.line.me/doc/ja/)
+- [GoogleAppScript で Google ドキュメントの差し込み印刷・PDF 発行する - Qiita](https://qiita.com/iori_ama/items/e3cddc9c1c17d8536568)
+- [Google Apps Script でよく使うスニペット集 30 選 - Qiita](https://qiita.com/tanabee/items/5de3e8715be759ce1c7f)
+- [【GAS】Google Apps Script 活用事例　差し込み文書の作成を自動化する｜ nepia_infinity ｜ note](https://note.com/nepia_infinity/n/n829ed89a187a)
+- [Google Apps Script - GAS で修正した document の PDF を添付してメール送信したいが修正前 document の PDF が添付される｜ teratail](https://teratail.com/questions/277836)
+- [GAS で請求書を自動作成し PDF 化｜フォーマットへのデータ出力からファイル保存まで](https://fastclassinfo.com/entry/gas_seikyusho/)
+- [【コピペで OK！】GAS で現在のシートを PDF 化する方法 - Yuki's bnb blog](https://www.yukibnb.com/entry/create_pdf_active_sheet#PDF%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86)
+- [GAS で画像を base64 でエンコード - Qiita](https://qiita.com/tsukumo_pro/items/5163751dc5bfee54e768)
