@@ -3,26 +3,18 @@
  * @param {Object} e - パラメータ
  * @example
  * function doGet(e){
- *   const { method, json, res } = Work_tools_library.WebAPI(e);
- *   switch(method){
- *      case 'GET':
- *        Logger.log(json);
- *        return res(json);
- *        break;
- *      case 'POST':
- *        break;
- *      case 'PUT':
- *        break;
- *      case 'PATCH':
- *        break;
- *      case 'DELETE':
- *        break;
- *      default:
- *   }
+ *   const { response, app } = Work_tools_library.WebAPI(e);
+ *   app('GET','/',(data)=>{
+ *     return data;
+ *   })
+ *   app('GET','/items/{id}',(data)=>{
+ *     return data;
+ *   })
+ *   return response();
  * }
  */
 function WebAPI(e) {
-  const req = e;
+  const request = e;
   const param = e.parameter === undefined ? {} : e.parameter;
   const method = param?.method || "GET";
   const endpoint = param?.endpoint || "/";
@@ -59,20 +51,16 @@ function WebAPI(e) {
     }
     return;
   }
-  function res(json) {
-    return ContentService.createTextOutput(JSON.stringify(json)).setMimeType(
-      ContentService.MimeType.JSON
-    );
-  }
-  function response(json = null) {
-    if (json) {
-      responseData = json;
+  function response(defaultData = {}) {
+    if (defaultData) {
+      responseData = responseData || defaultData;
     }
-    return res(responseData);
+    return ContentService.createTextOutput(
+      JSON.stringify(responseData)
+    ).setMimeType(ContentService.MimeType.JSON);
   }
   return {
-    req,
-    res,
+    request,
     response,
     app,
     param,

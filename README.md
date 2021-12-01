@@ -48,6 +48,21 @@ function sendLINE() {
 }
 ```
 
+#### WebAPI を作成
+
+```
+function doGet(e){
+  const { response, app } = Work_tools_library.WebAPI(e);
+  app('GET','/',(data)=>{
+    return data;
+  })
+  app('GET','/items/{id}',(data)=>{
+    return data;
+  })
+  return response();
+}
+```
+
 ## 使用コマンド
 
 ### CLI インストール

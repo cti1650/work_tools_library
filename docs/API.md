@@ -74,21 +74,13 @@ GASでWebAPIを作成するための関数
 **Example**  
 ```js
 function doGet(e){
-  const { method, json, res } = Work_tools_library.WebAPI(e);
-  switch(method){
-     case 'GET':
-       Logger.log(json);
-       return res(json);
-       break;
-     case 'POST':
-       break;
-     case 'PUT':
-       break;
-     case 'PATCH':
-       break;
-     case 'DELETE':
-       break;
-     default:
-  }
+  const { response, app } = Work_tools_library.WebAPI(e);
+  app('GET','/',(data)=>{
+    return data;
+  })
+  app('GET','/items/{id}',(data)=>{
+    return data;
+  })
+  return response();
 }
 ```
