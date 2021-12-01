@@ -7,6 +7,9 @@
 <dt><a href="#TemplateDocs">TemplateDocs(folderId)</a></dt>
 <dd><p>差し込み出力を行うための関数</p>
 </dd>
+<dt><a href="#WebAPI">WebAPI(e)</a></dt>
+<dd><p>GASでWebAPIを作成するための関数</p>
+</dd>
 </dl>
 
 <a name="LineApp"></a>
@@ -55,5 +58,37 @@ function TempDocs(){
       }
     )
   );
+}
+```
+<a name="WebAPI"></a>
+
+## WebAPI(e)
+GASでWebAPIを作成するための関数
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| e | <code>Object</code> | パラメータ |
+
+**Example**  
+```js
+function doGet(e){
+  const { method, json, res } = Work_tools_library.WebAPI(e);
+  switch(method){
+     case 'GET':
+       Logger.log(json);
+       return res(json);
+       break;
+     case 'POST':
+       break;
+     case 'PUT':
+       break;
+     case 'PATCH':
+       break;
+     case 'DELETE':
+       break;
+     default:
+  }
 }
 ```

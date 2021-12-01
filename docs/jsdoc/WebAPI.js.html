@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>LineApp.js - Documentation</title>
+    <title>WebAPI.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">LineApp.js</h1>
+    <h1 class="page-title">WebAPI.js</h1>
     
 
     
@@ -45,32 +45,86 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * LINEを扱うための関数
- * @param {string} token - LINE Notify Token
+ * GASでWebAPIを作成するための関数
+ * @param {Object} e - パラメータ
  * @example
- * function sendLINE() {
- *   const { sendLine } = Work_tools_library.LineApp('{{LINE Notify token}}');
- *   sendLine('テスト送信！');
+ * function doGet(e){
+ *   const { method, json, res } = Work_tools_library.WebAPI(e);
+ *   switch(method){
+ *      case 'GET':
+ *        Logger.log(json);
+ *        return res(json);
+ *        break;
+ *      case 'POST':
+ *        break;
+ *      case 'PUT':
+ *        break;
+ *      case 'PATCH':
+ *        break;
+ *      case 'DELETE':
+ *        break;
+ *      default:
+ *   }
  * }
  */
-function LineApp(token) {
-  const url = "https://notify-api.line.me/api/notify";
-  const defaultOptions = {
-    method: "post",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-    payload: {
-      message: "",
-    },
-  };
-  function sendLine(text) {
-    const options = { ...defaultOptions, payload: { message: text } };
-    if (options?.payload.message) {
-      UrlFetchApp.fetch(url, options);
+function WebAPI(e) {
+  const req = e;
+  const param = e.parameter === undefined ? {} : e.parameter;
+  const method = param?.method || "GET";
+  const endpoint = param?.endpoint || "/";
+  let responseData = null;
+  function checkEndpoint(point) {
+    const endpoint_arr = endpoint.split("/");
+    const point_arr = point.split("/");
+    let data = {};
+    const count = point_arr.filter((v, i) => {
+      if (v === endpoint_arr[i]) return true;
+      if (/{.*?}/.test(v)) {
+        data[/{(.*?)}/.exec(v)[1]] = endpoint_arr[i];
+        return true;
+      }
+    }).length;
+    if (count === endpoint_arr.length) {
+      return data;
+    } else {
+      return;
     }
   }
-  return { sendLine };
+  function app(methodStr, point, func = () => {}) {
+    if (method === methodStr) {
+      const dataSet = checkEndpoint(point);
+      if (typeof func === "function") {
+        if (dataSet) {
+          responseData = func({
+            ...param,
+            ...dataSet,
+          });
+        }
+      }
+      return dataSet;
+    }
+    return;
+  }
+  function res(json) {
+    return ContentService.createTextOutput(JSON.stringify(json)).setMimeType(
+      ContentService.MimeType.JSON
+    );
+  }
+  function response(json = null) {
+    if (json) {
+      responseData = json;
+    }
+    return res(responseData);
+  }
+  return {
+    req,
+    res,
+    response,
+    app,
+    param,
+    endpoint,
+    method: method.toUpperCase(),
+  };
 }
 </code></pre>
         </article>
