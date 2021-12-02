@@ -4,6 +4,9 @@
 <dt><a href="#LineApp">LineApp(token)</a></dt>
 <dd><p>LINEを扱うための関数</p>
 </dd>
+<dt><a href="#OCR">OCR()</a></dt>
+<dd><p>PDFのテキストをOCRで取得するための関数</p>
+</dd>
 <dt><a href="#TemplateDocs">TemplateDocs(folderId)</a></dt>
 <dd><p>差し込み出力を行うための関数</p>
 </dd>
@@ -28,6 +31,22 @@ LINEを扱うための関数
 function sendLINE() {
   const { sendLine } = Work_tools_library.LineApp('{{LINE Notify token}}');
   sendLine('テスト送信！');
+}
+```
+<a name="OCR"></a>
+
+## OCR()
+PDFのテキストをOCRで取得するための関数
+
+**Kind**: global function  
+**Example**  
+```js
+function ocrTest(){
+ const { searchFolderById } = Work_tools_library.OCR();
+ searchFolderById('{folderId}',({text,file})=>{
+   file.setTrashed(true);
+   Logger.log(text);
+ });
 }
 ```
 <a name="TemplateDocs"></a>

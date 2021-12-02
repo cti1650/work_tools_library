@@ -63,6 +63,18 @@ function doGet(e){
 }
 ```
 
+#### PDF のテキストを OCR で取得
+
+```
+function ocrTest(){
+  const { searchFolderById } = Work_tools_library.OCR();
+  searchFolderById('{folderId}',({text,file})=>{
+    file.setTrashed(true);
+    Logger.log(text);
+  });
+}
+```
+
 ## 使用コマンド
 
 ### CLI インストール
