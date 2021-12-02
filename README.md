@@ -154,3 +154,5 @@ clasp open
 - [GAS で請求書を自動作成し PDF 化｜フォーマットへのデータ出力からファイル保存まで](https://fastclassinfo.com/entry/gas_seikyusho/)
 - [【コピペで OK！】GAS で現在のシートを PDF 化する方法 - Yuki's bnb blog](https://www.yukibnb.com/entry/create_pdf_active_sheet#PDF%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86)
 - [GAS で画像を base64 でエンコード - Qiita](https://qiita.com/tsukumo_pro/items/5163751dc5bfee54e768)
+- [スプレッドシートの祝日一覧を iCal で Google Calendar に読み込めるようにする | 株式会社 LIG](https://liginc.co.jp/487514)
+- [Enum MimeType  |  Apps Script  |  Google Developers](https://developers.google.com/apps-script/reference/content/mime-type?hl=ja)
