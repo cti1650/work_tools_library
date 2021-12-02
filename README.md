@@ -156,3 +156,4 @@ clasp open
 - [GAS で画像を base64 でエンコード - Qiita](https://qiita.com/tsukumo_pro/items/5163751dc5bfee54e768)
 - [スプレッドシートの祝日一覧を iCal で Google Calendar に読み込めるようにする | 株式会社 LIG](https://liginc.co.jp/487514)
 - [Enum MimeType  |  Apps Script  |  Google Developers](https://developers.google.com/apps-script/reference/content/mime-type?hl=ja)
+- [カレンダーに使われる iCalendar 形式について part1 - Qiita](https://qiita.com/TomOse/items/31b5fb4782f06d19af79)
