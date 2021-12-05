@@ -52,6 +52,46 @@ function WebAPI(e) {
           JSON.stringify(value)
         ).setMimeType(ContentService.MimeType.JSON);
         break;
+      case "CSV":
+        if (Array.isArray(value)) {
+          let csv_array = [];
+          if (Array.isArray(value[0])) {
+            csv_array = value.map((row) => {
+              return row
+                .map((cell) => {
+                  return JSON.stringify(cell);
+                })
+                .join(",");
+            });
+          } else if (typeof value[0] === "object") {
+            const title_array = Object.keys(value[0]);
+            csv_array = value.map((row) => {
+              return title_array
+                .map((key) => {
+                  return JSON.stringify(row[key]);
+                })
+                .join(",");
+            });
+            csv_array = [
+              [
+                ...title_array.map((key) => {
+                  return JSON.stringify(key);
+                }),
+              ],
+              ...csv_array,
+            ];
+          } else {
+            csv_array = value.map((row) => {
+              return JSON.stringify(row);
+            });
+          }
+          responseData = ContentService.createTextOutput(
+            csv_array.join("\n")
+          ).setMimeType(ContentService.MimeType.CSV);
+        } else {
+          responseData = ContentService.createTextOutput(value);
+        }
+        break;
       case "ICAL":
         let ical = "";
         ical += "BEGIN:VCALENDAR\n";
@@ -122,6 +162,7 @@ function WebAPI(e) {
   function app(methodStr, point, func = () => {}, option = {}) {
     const defaultOption = {
       mimeType: "json",
+      saveToFileName: null,
     };
     const baseOption = {
       ...defaultOption,
@@ -136,6 +177,9 @@ function WebAPI(e) {
             ...dataSet,
           });
           checkOutputType(resData, baseOption.mimeType);
+          if (baseOption.saveToFileName) {
+            return responseData.downloadAsFile(baseOption.saveToFileName);
+          }
         }
       }
       return dataSet;
