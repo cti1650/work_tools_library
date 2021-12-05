@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>LineApp.js - Documentation</title>
+    <title>NotionApp.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">LineApp.js</h1>
+    <h1 class="page-title">NotionApp.js</h1>
     
 
     
@@ -45,32 +45,26 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * LINEを扱うための関数
- * @param {string} token - LINE Notify Token
- * @example
- * function sendLINE() {
- *   const { sendLine } = Work_tools_library.LineApp('{{LINE Notify token}}');
- *   sendLine('テスト送信！');
- * }
+ * NotionAPIを扱うための関数
+ * @param {string} token - Notion API Token
  */
-function LineApp(token) {
-  const url = "https://notify-api.line.me/api/notify";
+function NotionApp(token) {
+  const url = "https://api.notion.com/v1/";
   const defaultOptions = {
     method: "post",
     headers: {
       Authorization: "Bearer " + token,
+      "Notion-Version": "2021-08-16",
     },
-    payload: {
-      message: "",
-    },
+    payload: {},
   };
-  function sendLine(text) {
-    const options = { ...defaultOptions, payload: { message: text } };
-    if (options?.payload.message) {
-      UrlFetchApp.fetch(url, options);
-    }
+  function getQueryDatabase(databaseId, option = {}) {
+    const options = { ...defaultOptions, payload: option };
+    const endpoint = `databases/${databaseId}/query`;
+    const res = UrlFetchApp.fetch(url + endpoint, options);
+    return JSON.parse(res);
   }
-  return { sendLine };
+  return { getQueryDatabase };
 }
 </code></pre>
         </article>

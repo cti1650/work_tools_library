@@ -4,6 +4,9 @@
 <dt><a href="#LineApp">LineApp(token)</a></dt>
 <dd><p>LINEを扱うための関数</p>
 </dd>
+<dt><a href="#NotionApp">NotionApp(token)</a></dt>
+<dd><p>NotionAPIを扱うための関数</p>
+</dd>
 <dt><a href="#OCR">OCR()</a></dt>
 <dd><p>PDFのテキストをOCRで取得するための関数</p>
 </dd>
@@ -33,6 +36,17 @@ function sendLINE() {
   sendLine('テスト送信！');
 }
 ```
+<a name="NotionApp"></a>
+
+## NotionApp(token)
+NotionAPIを扱うための関数
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| token | <code>string</code> | Notion API Token |
+
 <a name="OCR"></a>
 
 ## OCR()
