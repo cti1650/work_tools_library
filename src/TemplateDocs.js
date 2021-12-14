@@ -75,8 +75,61 @@ function TemplateDocs(folderId) {
 
     return { data, docUrl, fileId };
   }
+  function ssToDoc(tampFileId, data, option) {
+    const sourceSS = DriveApp.getFileById(tampFileId);
+    const originalName = sourceSS.getName();
+    const baseOptions = {
+      pdfOutput: true,
+      ...option,
+    };
+
+    let fileName = originalName;
+    Object.keys(data).forEach((key) => {
+      fileName = fileName.replace(`{${key}}`, data[key] || "");
+    });
+
+    console.log("テンプレートファイルの名前：", sourceSS.getName());
+
+    const copyDir = DriveApp.getFolderById(folderId);
+    const copySS = sourceSS.makeCopy(fileName, copyDir);
+    const fileId = copySS.getId();
+
+    const ssUrl = "https://docs.google.com/spreadsheets/d/" + fileId + "/edit";
+    console.log("複製後のファイル URL：", ssUrl);
+
+    const targetSS = SpreadsheetApp.openById(fileId);
+    console.log(targetSS.getName());
+
+    let sheet = targetSS.getActiveSheet();
+    Object.keys(data).forEach((key) => {
+      const textFinder = sheet.createTextFinder(`{${key}}`);
+      textFinder.replaceAllWith(data[key] || "");
+    });
+
+    if (baseOptions.pdfOutput) {
+      const { linkUrl } = makePDF(fileId, {
+        gridlines: "false", // グリッドラインの表示有無
+        fzr: "true", // 固定行の表示有無
+        gid: sheet.getSheetId().toString(),
+        range: encodeURIComponent(sheet.getDataRange().getA1Notation()), // 対象範囲「%3A」 = : (コロン)
+      });
+      return { data, ssUrl, pdfUrl: linkUrl, fileId };
+    }
+
+    return { data, ssUrl, fileId };
+  }
   function createPDFblob(fileId, option = {}) {
-    const des_url = "https://docs.google.com/document/d/" + fileId + "/export?";
+    let des_url = "";
+    switch (DriveApp.getFileById(fileId).getMimeType()) {
+      case MimeType.GOOGLE_DOCS:
+        des_url = "https://docs.google.com/document/d/" + fileId + "/export?";
+        break;
+      case MimeType.GOOGLE_SHEETS:
+        des_url =
+          "https://docs.google.com/spreadsheets/d/" + fileId + "/export?";
+        break;
+      default:
+    }
     const baseOptions = {
       ...defaultPrintOptions,
       ...option,
@@ -119,5 +172,5 @@ function TemplateDocs(folderId) {
     }
     return {};
   }
-  return { docToDoc, makePDF, createPDFblob, makePDFbase64 };
+  return { docToDoc, ssToDoc, makePDF, createPDFblob, makePDFbase64 };
 }
